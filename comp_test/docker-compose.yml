@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  api:
+    image: python:3.7-alpine
+    command: sh -c "pip3 install cherrypy --no-cache-dir && python3 data.py"
+    ports:
+    - 8080:80
+    working_dir: /app
+    volumes:
+      - ./:/app
+
+  tests:
+    image: python:3.7-alpine
+    network_mode: host
+    command: sh -c "pip3 install -r requirements.txt --no-cache-dir && pytest" tail -f dev/null
+    working_dir: /tests
+    volumes:
+      - ./:/tests
+
+  # docs:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     target: dev
+  #   ports:
+  #     - 8000:8000
+  #   volumes:
+  #     - ./:/app
