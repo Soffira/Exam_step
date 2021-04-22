@@ -50,4 +50,6 @@ $ docker-compose down
 ```
 
 You can view the logs like this:
+```
 $  cat -n example.log
+```
